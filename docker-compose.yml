@@ -1,0 +1,17 @@
+version: '3'
+services:
+  redis-backup:
+    build: '.'
+    environment:
+      - REDIS_RDB_PATH=/data/redis/rdb/test_rdb.txt
+      - REDIS_AOF_PATH=/data/redis/aof/test_aof.txt
+      - BACKUP_RDB_DIR=/data/backups/rdb
+      - BACKUP_AOF_DIR=/data/backups/aof
+      - CRON_TIME=* * * * *
+      - COMMAND=restore
+
+    volumes:
+      - './data/rdb:/data/redis/rdb'
+      - './data/aof:/data/redis/aof'
+      - './backups/rdb:/data/backups/rdb'
+      - './backups/aof:/data/backups/aof'
