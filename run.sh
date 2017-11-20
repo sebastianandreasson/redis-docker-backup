@@ -17,7 +17,7 @@ if [[ "$COMMAND" == restore ]]; then
     exec $(tar -xzf $LATEST_RDB_PATH && tar -xzf $LATEST_AOF_PATH)
 elif [[ "$COMMAND" == backup ]]; then
     echo "Running backup script"
-    echo "${CRON_TIME} /scripts/backup.sh $REDIS_RDB_PATH $BACKUP_RDB_DIR $REDIS_AOF_PATH $BACKUP_AOF_DIR >> /log/redis_backup.log 2>&1" > /crontab.conf
+    echo "${CRON_TIME} /scripts/backup.sh $REDIS_RDB_PATH $BACKUP_RDB_DIR $REDIS_AOF_PATH $BACKUP_AOF_DIR $MAX_BACKUPS >> /log/redis_backup.log 2>&1" > /crontab.conf
     crontab  /crontab.conf
     echo "Running redis backups as a cron for ${CRON_TIME}"
     exec cron -f
