@@ -1,0 +1,14 @@
+pm-redis-backup-test:
+  environment:
+    - REDIS_HOST=REDIS_HOST
+    - BACKUP_DIR=/backups/rdb
+    - 'CRON_TIME=* * * * *'
+    - MAX_BACKUPS=2
+  image: 'sebastianandreas/redis-docker-backup:latest'
+  privileged: true
+  tags:
+    - internal
+    - secondary
+    - test
+  volumes:
+    - '/data/backup_dir/rdb:/backups'
